@@ -2,41 +2,13 @@
 char data[26];
 int number_of_bytes_received;
 
-// Pines de los botones
-const int pushButton2 = 2;
-const int pushButton3 = 3;
-const int pushButton4 = 4;
-const int pushButton5 = 5;
-
-// Variables de estado
-int buttonState2, buttonState3, buttonState4, buttonState5;
-
 void setup() { 
   // Configuración inicial
   Serial.begin(9600);
   Serial.println("En línea, esperando instrucciones...");
-  
-  // Configurar pines de botones como entrada
-  pinMode(pushButton2, INPUT);
-  pinMode(pushButton3, INPUT);
-  pinMode(pushButton4, INPUT);
-  pinMode(pushButton5, INPUT);
 }
 
 void loop() {
-  // Leer botones
-  buttonState2 = digitalRead(pushButton2);
-  buttonState3 = digitalRead(pushButton3);
-  buttonState4 = digitalRead(pushButton4);
-  buttonState5 = digitalRead(pushButton5);
-
-  // Mostrar estados de los botones en el puerto serial
-  Serial.print("Botones: ");
-  Serial.print(buttonState2); Serial.print(",");
-  Serial.print(buttonState3); Serial.print(",");
-  Serial.print(buttonState4); Serial.print(",");
-  Serial.println(buttonState5);
-
   // Procesar datos recibidos por comunicación serial
   if (Serial.available()) {
     number_of_bytes_received = Serial.readBytesUntil(13, data, 25); // Leer hasta 25 bytes o hasta recibir <CR>
@@ -64,11 +36,11 @@ void realizarOperacion(int operacion) {
   // Dependiendo de la operación
   switch (operacion) {
     case 1: // Suma
-      resultado = buttonState2 + buttonState3 + buttonState4 + buttonState5;
+      resultado = 5 + 3; // Ejemplo de suma (puedes ajustar los valores)
       break;
     case 2: // División (asegúrate de evitar divisiones por 0)
-      if (buttonState3 != 0) {
-        resultado = buttonState2 / buttonState3;
+      if (3 != 0) { // Ejemplo divisor
+        resultado = 15 / 3; // Ejemplo de división
       } else {
         Serial.println("Error: División por cero");
         return;
@@ -79,7 +51,7 @@ void realizarOperacion(int operacion) {
       return;
   }
 
-  // Mostrar resultado en serial y display (a implementar)
+  // Mostrar resultado en serial
   Serial.print("Resultado: ");
   Serial.println(resultado);
 
